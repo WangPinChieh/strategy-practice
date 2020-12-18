@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace strategy_practice
 {
@@ -62,22 +63,20 @@ namespace strategy_practice
     {
         public double shippingFee(string shipperName, Product product)
         {
+            var shippers = new Dictionary<string, IShipper>
+            {
+                {"black cat", new BlackCat()},
+                {"hsinchu", new Hsinchu()},
+                {"post office", new PostOffice()},
+            };      
             IShipper shipper;
             switch (shipperName)
             {
                 case "black cat":
-                    shipper = new BlackCat();
-                    break;
                 case "hsinchu":
-                {
-                    shipper = new Hsinchu();
-                    break;
-                }
                 case "post office":
-                {
-                    shipper = new PostOffice();
+                    shipper = shippers[shipperName];
                     break;
-                }
                 default:
                     throw new Exception("shipper not exist");
             }
