@@ -65,23 +65,19 @@ namespace strategy_practice
 
     public class Cart
     {
-        private readonly BlackCat _blackCat = new BlackCat();
-        private readonly Hsinchu _hsinchu = new Hsinchu();
-        private readonly PostOffice _postOffice = new PostOffice();
-
         public double shippingFee(string shipper, Product product)
         {
             switch (shipper)
             {
                 case "black cat":
-                     return _blackCat.CalculateFee(product);
+                     return new BlackCat().CalculateFee(product);
                 case "hsinchu":
                 {
-                    return _hsinchu.CalculateFee(product);
+                    return new Hsinchu().CalculateFee(product);
                 }
                 case "post office":
                 {
-                    return _postOffice.CalculateFee(product);
+                    return new PostOffice().CalculateFee(product);
                 }
                 default:
                     throw new Exception("shipper not exist");
