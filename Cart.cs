@@ -61,27 +61,16 @@ namespace strategy_practice
 
     public class Cart
     {
+        private Dictionary<string, IShipper> _shippers = new Dictionary<string, IShipper>
+        {
+            {"black cat", new BlackCat()},
+            {"hsinchu", new Hsinchu()},
+            {"post office", new PostOffice()},
+        };
+
         public double shippingFee(string shipperName, Product product)
         {
-            var shippers = new Dictionary<string, IShipper>
-            {
-                {"black cat", new BlackCat()},
-                {"hsinchu", new Hsinchu()},
-                {"post office", new PostOffice()},
-            };      
-            IShipper shipper;
-            switch (shipperName)
-            {
-                case "black cat":
-                case "hsinchu":
-                case "post office":
-                    shipper = shippers[shipperName];
-                    break;
-                default:
-                    throw new Exception("shipper not exist");
-            }
-
-            return shipper.CalculateFee(product);
+            return _shippers[shipperName].CalculateFee(product);
         }
     }
 }
