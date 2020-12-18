@@ -16,6 +16,11 @@ namespace strategy_practice
         public double Width { get; private set; }
         public double Height { get; private set; }
         public double Weight { get; private set; }
+
+        public double GetSize()
+        {
+            return Length * Width * Height;
+        }
     }
 
     public class Cart
@@ -28,7 +33,7 @@ namespace strategy_practice
                      return product.Weight > 20 ? 500 : 100 + product.Weight * 10;
                 case "hsinchu":
                 {
-                    double size = product.Length * product.Width * product.Height;
+                    var size = product.GetSize();
                     if (product.Length > 100 || product.Width > 100 || product.Height > 100) {
                         return size * 0.00002 * 1100 + 500;
                     } else {
@@ -38,7 +43,7 @@ namespace strategy_practice
                 case "post office":
                 {
                     double feeByWeight = 80 + product.Weight * 10;
-                    double size = product.Length * product.Width * product.Height;
+                    double size = product.GetSize();
                     double feeBySize = size * 0.00002 * 1100;
                     return feeByWeight < feeBySize ? feeByWeight : feeBySize;
                 }
@@ -46,6 +51,5 @@ namespace strategy_practice
                     throw new Exception("shipper not exist");
             }
         }
- 
     }
 }
