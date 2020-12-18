@@ -23,42 +23,42 @@ namespace strategy_practice
         [Test]
         public void black_cat_with_light_weight()
         {
-            var shippingFee = _cart.shippingFee(BlackCat, 30, 20, 10, 5);
+            var shippingFee = _cart.shippingFee(BlackCat, new Product(30, 20, 10, 5));
             feeShouldBe(150, shippingFee);
         }
 
         [Test]
         public void black_cat_with_heavy_weight()
         {
-            var shippingFee = _cart.shippingFee(BlackCat, 30, 20, 10, 50);
+            var shippingFee = _cart.shippingFee(BlackCat, new Product(30, 20, 10, 50));
             feeShouldBe(500, shippingFee);
         }
 
         [Test]
         public void hsinchu_with_small_size()
         {
-            var shippingFee = _cart.shippingFee(Hsinchu, 30, 20, 10, 50);
+            var shippingFee = _cart.shippingFee(Hsinchu, new Product(30, 20, 10, 50));
             feeShouldBe(144, shippingFee);
         }
 
         [Test]
         public void hsinchu_with_huge_size()
         {
-            var shippingFee = _cart.shippingFee(Hsinchu, 100, 20, 10, 50);
+            var shippingFee = _cart.shippingFee(Hsinchu, new Product(100, 20, 10, 50));
             feeShouldBe(480, shippingFee);
         }
 
         [Test]
         public void post_office_by_weight()
         {
-            var shippingFee = _cart.shippingFee(PostOffice, 100, 20, 10, 3);
+            var shippingFee = _cart.shippingFee(PostOffice, new Product(100, 20, 10, 3));
             feeShouldBe(110, shippingFee);
         }
 
         [Test]
         public void post_office_by_size()
         {
-            var shippingFee = _cart.shippingFee(PostOffice, 100, 20, 10, 300);
+            var shippingFee = _cart.shippingFee(PostOffice, new Product(100, 20, 10, 300));
             feeShouldBe(440, shippingFee);
         }
 
