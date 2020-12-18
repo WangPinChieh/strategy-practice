@@ -23,36 +23,17 @@ namespace strategy_practice
         }
     }
 
-    public class Cart
+    public class BlackCat
     {
-        public double shippingFee(string shipper, Product product)
+        public double CalculateFeeByBlackCat(Product product)
         {
-            switch (shipper)
-            {
-                case "black cat":
-                     return CalculateFeeByBlackCat(product);
-                case "hsinchu":
-                {
-                    return CalculateFeeByHsinchu(product);
-                }
-                case "post office":
-                {
-                    return CalculateFeeByPostOffice(product);
-                }
-                default:
-                    throw new Exception("shipper not exist");
-            }
+            return product.Weight > 20 ? 500 : 100 + product.Weight * 10;
         }
+    }
 
-        public static double CalculateFeeByPostOffice(Product product)
-        {
-            double feeByWeight = 80 + product.Weight * 10;
-            double size = product.GetSize();
-            double feeBySize = size * 0.00002 * 1100;
-            return feeByWeight < feeBySize ? feeByWeight : feeBySize;
-        }
-
-        public static double CalculateFeeByHsinchu(Product product)
+    public class Hsinchu
+    {
+        public double CalculateFeeByHsinchu(Product product)
         {
             var size = product.GetSize();
             if (product.Length > 100 || product.Width > 100 || product.Height > 100)
@@ -64,10 +45,42 @@ namespace strategy_practice
                 return size * 0.00002 * 1200;
             }
         }
+    }
 
-        public static double CalculateFeeByBlackCat(Product product)
+    public class PostOffice
+    {
+        public double CalculateFeeByPostOffice(Product product)
         {
-            return product.Weight > 20 ? 500 : 100 + product.Weight * 10;
+            double feeByWeight = 80 + product.Weight * 10;
+            double size = product.GetSize();
+            double feeBySize = size * 0.00002 * 1100;
+            return feeByWeight < feeBySize ? feeByWeight : feeBySize;
+        }
+    }
+
+    public class Cart
+    {
+        private readonly BlackCat _blackCat = new BlackCat();
+        private readonly Hsinchu _hsinchu = new Hsinchu();
+        private readonly PostOffice _postOffice = new PostOffice();
+
+        public double shippingFee(string shipper, Product product)
+        {
+            switch (shipper)
+            {
+                case "black cat":
+                     return _blackCat.CalculateFeeByBlackCat(product);
+                case "hsinchu":
+                {
+                    return _hsinchu.CalculateFeeByHsinchu(product);
+                }
+                case "post office":
+                {
+                    return _postOffice.CalculateFeeByPostOffice(product);
+                }
+                default:
+                    throw new Exception("shipper not exist");
+            }
         }
     }
 }
