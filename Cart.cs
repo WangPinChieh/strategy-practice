@@ -30,7 +30,7 @@ namespace strategy_practice
             switch (shipper)
             {
                 case "black cat":
-                     return product.Weight > 20 ? 500 : 100 + product.Weight * 10;
+                     return CalculateFeeByBlackCat(product);
                 case "hsinchu":
                 {
                     var size = product.GetSize();
@@ -50,6 +50,11 @@ namespace strategy_practice
                 default:
                     throw new Exception("shipper not exist");
             }
+        }
+
+        public static double CalculateFeeByBlackCat(Product product)
+        {
+            return product.Weight > 20 ? 500 : 100 + product.Weight * 10;
         }
     }
 }
