@@ -33,22 +33,35 @@ namespace strategy_practice
                      return CalculateFeeByBlackCat(product);
                 case "hsinchu":
                 {
-                    var size = product.GetSize();
-                    if (product.Length > 100 || product.Width > 100 || product.Height > 100) {
-                        return size * 0.00002 * 1100 + 500;
-                    } else {
-                        return size * 0.00002 * 1200;
-                    }
+                    return CalculateFeeByHsinchu(product);
                 }
                 case "post office":
                 {
-                    double feeByWeight = 80 + product.Weight * 10;
-                    double size = product.GetSize();
-                    double feeBySize = size * 0.00002 * 1100;
-                    return feeByWeight < feeBySize ? feeByWeight : feeBySize;
+                    return CalculateFeeByPostOffice(product);
                 }
                 default:
                     throw new Exception("shipper not exist");
+            }
+        }
+
+        public static double CalculateFeeByPostOffice(Product product)
+        {
+            double feeByWeight = 80 + product.Weight * 10;
+            double size = product.GetSize();
+            double feeBySize = size * 0.00002 * 1100;
+            return feeByWeight < feeBySize ? feeByWeight : feeBySize;
+        }
+
+        public static double CalculateFeeByHsinchu(Product product)
+        {
+            var size = product.GetSize();
+            if (product.Length > 100 || product.Width > 100 || product.Height > 100)
+            {
+                return size * 0.00002 * 1100 + 500;
+            }
+            else
+            {
+                return size * 0.00002 * 1200;
             }
         }
 
