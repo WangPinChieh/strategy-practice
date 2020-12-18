@@ -23,17 +23,22 @@ namespace strategy_practice
         }
     }
 
-    public class BlackCat
+    public interface IShipper
     {
-        public double CalculateFeeByBlackCat(Product product)
+        double CalculateFee(Product product);
+    }
+
+    public class BlackCat : IShipper
+    {
+        public double CalculateFee(Product product)
         {
             return product.Weight > 20 ? 500 : 100 + product.Weight * 10;
         }
     }
 
-    public class Hsinchu
+    public class Hsinchu : IShipper
     {
-        public double CalculateFeeByHsinchu(Product product)
+        public double CalculateFee(Product product)
         {
             var size = product.GetSize();
             if (product.Length > 100 || product.Width > 100 || product.Height > 100)
@@ -47,9 +52,9 @@ namespace strategy_practice
         }
     }
 
-    public class PostOffice
+    public class PostOffice : IShipper
     {
-        public double CalculateFeeByPostOffice(Product product)
+        public double CalculateFee(Product product)
         {
             double feeByWeight = 80 + product.Weight * 10;
             double size = product.GetSize();
@@ -69,14 +74,14 @@ namespace strategy_practice
             switch (shipper)
             {
                 case "black cat":
-                     return _blackCat.CalculateFeeByBlackCat(product);
+                     return _blackCat.CalculateFee(product);
                 case "hsinchu":
                 {
-                    return _hsinchu.CalculateFeeByHsinchu(product);
+                    return _hsinchu.CalculateFee(product);
                 }
                 case "post office":
                 {
-                    return _postOffice.CalculateFeeByPostOffice(product);
+                    return _postOffice.CalculateFee(product);
                 }
                 default:
                     throw new Exception("shipper not exist");
